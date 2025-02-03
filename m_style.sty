@@ -1,0 +1,226 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{m_style}[2025/01/03 v0.1 (guilhermeivo)]
+\typeout{Document Style: Layout definitions for package m_style}
+
+\RequirePackage{newtx} % pattern font in projects
+\RequirePackage{hyperref}
+\RequirePackage[left=2.5cm, right=2.0cm, top=2.5cm, bottom=2.0cm]{geometry}
+
+\author{guilhermeivo}
+
+\linespread{1.25} 
+\setlength{\parskip}{5pt}
+
+\newif\if@customsection
+\newif\if@custommaketitle
+\newif\if@customlistings
+\DeclareOption{section}{\@customsectiontrue}
+\DeclareOption{maketitle}{\@custommaketitletrue}
+\ProcessOptions\relax
+
+\if@twocolumn%
+    \setlength{\parindent}{0.75cm}
+    \setlength{\columnsep}{0.6cm} 
+\else% \@twocolumnfalse
+    \@ifpackageloaded{multicol}{
+        \setlength{\parindent}{0.75cm}
+        \setlength{\columnsep}{0.6cm}
+    }{
+        \setlength{\parindent}{1.5cm}
+    }
+\fi
+
+% configuration math names
+\@ifpackageloaded{amsmath}{
+    \DeclareMathOperator{\arctg}{arctg}
+    \renewcommand{\arctan}{\arctg}
+
+    \DeclareMathOperator{\sen}{sen}
+    \renewcommand{\sin}{\sen}
+}{\relax}
+
+%% UPPERLETTER ENVIRONMENT BEGIN
+\newlength{\fontsizeupperletter}
+\setlength{\fontsizeupperletter}{5.27em}
+
+\newlength{\heighttext}
+\newlength{\widthtext}
+\newlength{\depthtext}
+\newlength{\totaltext}
+\newlength{\numberoflines}
+
+\def\@tempupperletter#1{\ifx#1*\relax\relax\else\upperletter{#1}\fi}
+
+\def\@upperletter{%
+    \@ifnextchar\par%
+    {\expandafter\@upperletter\@gobble}%
+    {\@tempupperletter}}
+
+\newcommand{\upperletter}[1]{
+    \vspace{\parskip}%
+    \def\@temp{%
+        \noindent\begingroup\fontsize{\fontsizeupperletter}{\fontsizeupperletter}\selectfont\uppercase\expandafter{#1}\endgroup%
+    }
+    \settoheight{\heighttext}{\@temp}
+    \settowidth{\widthtext}{\@temp\relax}
+    \settodepth{\depthtext}{\@temp}
+    \setlength{\totaltext}{\dimexpr \heighttext+\depthtext+\baselineskip}
+    
+    {\@temp}
+
+    \vspace{-\totaltext}%
+    \noindent%
+    \hangindent=\dimexpr\widthtext+0.5pc\relax\hangafter=-\numexpr(\totaltext/\baselineskip)\relax%
+}
+%% UPPERLETTER ENVIRONMENT END
+
+%% CUSTOM SECTION ENVIRONMENT BEGIN
+\if@customsection
+
+\let\my@ssect\@ssect
+\def\@ssect#1#2#3#4#5{%
+    \my@ssect{#1}{#2}{#3}{#4}{\centering#5}%
+    %%
+    \if@twocolumn%
+        \ifnum\col@number=\@ne\relax%
+            \let\@upperletter\relax%
+        \else%
+            \relax%
+        \fi%
+    \fi%
+    \@upperletter}
+
+\renewcommand{\section}{\@startsection {section}{1}{\z@}%
+    {-3.5ex \@plus -1ex \@minus -.2ex}%
+    {2.3ex \@plus .2ex}%
+    {\normalfont\LARGE\scshape\bfseries}%
+}
+
+\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+    {-3.25ex\@plus -1ex \@minus -.2ex}%
+    {1.5ex \@plus .2ex}%
+    {\normalfont\Large\scshape\bfseries}%
+}
+
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{2}{\z@}%
+    {-3.25ex\@plus -1ex \@minus -.2ex}%
+    {1.5ex \@plus .2ex}%
+    {\normalfont\normalsize\large\scshape\bfseries}%
+}
+
+\fi
+%% CUSTOM SECTION ENVIRONMENT END
+
+%% CUSTOM MAKETITLE ENVIRONMENT BEGIN
+\let\titleoriginal\title
+\renewcommand{\title}[1]{
+    \titleoriginal{#1}%
+    \newcommand{\thetitle}{#1}
+}
+\newcommand*{\subtitle}[1]{\gdef\@subtitle{#1}}
+\newcommand*{\accessin}[1]{\gdef\@accessin{#1}}
+\newcommand*{\keywords}[1]{\gdef\@keywords{#1}}
+
+\if@custommaketitle
+
+\renewcommand{\@maketitle}{%
+    \newpage
+    \null
+    \vskip 2em%
+    \begin{center}%
+        \let \footnote \thanks
+        {\LARGE \textbf{\@title} \par}%
+        \ifdefined\@subtitle%
+            {\LARGE \@subtitle \par}%
+        \fi
+        \vskip 1em%
+        {\large
+            \lineskip .5em%
+            \begin{tabular}[t]{c}%
+            \ifdefined\@accessin%
+            \@accessin \\
+            \fi
+            \ifdefined\@author%
+            \@author  \\
+            \fi
+            \end{tabular}\par}%
+        \vskip 1em%
+        \ifdefined\@date
+        {\large \@date}
+        \fi
+    \end{center}%
+    \par
+    \vskip 1.5em
+}
+
+\let\mymaketitle\maketitle
+
+\renewcommand{\maketitle}{
+    \renewcommand{\thepage}{Cover}%
+    \mymaketitle%
+    \thispagestyle{empty}%
+}
+
+\fi
+%% CUSTOM MAKETITLE ENVIRONMENT END
+
+%% CUSTOM HEADINGS ENVIRONMENT BEGIN
+\def\ps@mainheadings{%
+    \def\@oddhead{\hspace*{-1cm}\reset@font\footnotesize{\slshape{\thetitle}}\hfill\thepage\hspace*{-1cm}}%
+    \def\@evenhead{\hspace*{-1cm}\reset@font\footnotesize\thepage\hfill\hspace*{-1cm}}%
+    \let\@oddfoot\@empty
+    \let\@evenfoot\@empty
+}
+%% CUSTOM HEADINGS ENVIRONMENT END
+
+% line with thickness control
+\newcommand{\Hline}{%
+\noalign {\ifnum0 =`}\fi \hrule \@height 1.5pt \futurelet \reserved@a \@xhline}
+
+\newenvironment{appendixenv}[1][\@empty]{
+    \begingroup
+    \pagenumbering{Roman}
+    \appendix
+    \cleardoublepage
+    %\ifx#1\@empty\relax
+    %\else
+    \thispagestyle{empty}
+    \vspace*{\fill}
+    {%
+        \centering\part*{\centering\scshape\Huge#1}%
+        \phantomsection%
+        \addcontentsline{toc}{chapter}{\protect\numberline{}#1}%
+    }
+    \vspace*{\fill}
+    %\fi
+    \pagestyle{plain}
+    \newpage
+}{%
+    \endgroup
+    \newpage
+}
+
+% split text
+\newcommand{\splittext}[2][,]{%
+\begingroup%
+    \def\start{}%
+    \def\itemseparate{#1}%
+    \expandafter\splitaux#2\end%
+\endgroup
+}
+\def\splitaux#1\end{%
+    \@split \start#1,\end,%
+}
+\def\@split #1,{%
+    \ifx\end#1%
+        \unskip\char46% char 46 = .
+    \else%
+        \ifx\start#1%
+        \else%
+            \unskip\itemseparate\space\ignorespaces#1%
+        \fi%
+        \expandafter\@split%
+    \fi%
+}
+
+\pagestyle{mainheadings}

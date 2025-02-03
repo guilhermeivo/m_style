@@ -1,0 +1,85 @@
+\documentclass[twocolumn,10pt]{article}
+
+\usepackage[brazil]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{blindtext}
+
+%\newenvironment{appendixenv}[1][\@empty]{\begingroup\appendix}{\endgroup}
+\usepackage[section, maketitle]{m_style}
+
+\title{Arquivo de Exemplo para o Estilo m\_style.sty}
+\keywords{example, \LaTeX}
+\date{\today}
+
+\makeatletter
+\hypersetup{
+    colorlinks = true,
+    allcolors = black,
+    pdftitle = {\@title},
+    pdfauthor = {\@author},
+    pdfcreator = {\LaTeX},
+    pdfkeywords = {\@keywords}
+}
+\makeatother
+
+\begin{document}
+
+\maketitle
+
+\pagenumbering{arabic}
+
+\blindtext
+
+\section*{First Section}
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+\blindtext
+
+\begin{enumerate}
+    \item Default font size is: \makeatletter\f@size\makeatother pt.
+    
+    \item It doesn't work using the default font, as it has a size limit.
+\end{enumerate}    
+
+\blindtext
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing\footnote{Lorem ipsum dolor sit amet, consectetuer adipiscing elit.} elit.
+\blindtext
+
+
+\twocolumn [
+    \section*{Large Center Section}
+    \vskip 0.45cm
+]
+
+\blindtext\blindtext
+
+\section*{Large Middle Section}
+ALorem ipsum dolor sit amet, consectetuer\cite{texbook} adipiscing elit.
+\blindtext
+
+\blindtext
+
+\blindtext
+
+\blindtext
+
+
+\twocolumn [
+    \pagenumbering{gobble}\thispagestyle{empty}\pagestyle{empty}
+    \bibliographystyle{plain}
+    \bibliography{references}
+]
+
+\onecolumn
+
+%\twocolumn [
+    \begin{appendixenv}[Appendix]
+        \section{First Appendix} \label{apx:first-appendix}
+
+        \blindtext
+    \end{appendixenv}
+%]
+
+\end{document}
