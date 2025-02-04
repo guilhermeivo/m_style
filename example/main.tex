@@ -65,21 +65,16 @@ ALorem ipsum dolor sit amet, consectetuer\cite{texbook} adipiscing elit.
 
 \blindtext
 
-
-\twocolumn [
-    \pagenumbering{gobble}\thispagestyle{empty}\pagestyle{empty}
-    \bibliographystyle{plain}
-    \bibliography{references}
-]
-
 \onecolumn
 
-%\twocolumn [
-    \begin{appendixenv}[Appendix]
-        \section{First Appendix} \label{apx:first-appendix}
+\pagenumbering{gobble}\thispagestyle{empty}\pagestyle{empty}
+\bibliographystyle{plain}
+\bibliography{references}
 
-        \blindtext
-    \end{appendixenv}
-%]
+\begin{appendixenv}[Appendix]
+    \section{First Appendix} \label{apx:first-appendix}
+
+    \blindtext
+\end{appendixenv}
 
 \end{document}

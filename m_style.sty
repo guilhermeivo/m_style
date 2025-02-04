@@ -49,7 +49,25 @@
 \newlength{\totaltext}
 \newlength{\numberoflines}
 
-\def\@tempupperletter#1{\ifx#1*\relax\relax\else\upperletter{#1}\fi}
+\newcommand\inlist[2]{%
+    \begingroup%
+    \edef\x{\endgroup\noexpand\in@{,#1,}{,#2,}}\x%
+    \ifin@%
+        \expandafter\@firstoftwo%
+    \else%
+        \expandafter\@secondoftwo%
+    \fi}
+
+\def\@tempupperletter#1{%
+    \let\nextchar#1%
+    \inlist{\noexpand#1}{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z}{%
+        \upperletter\nextchar%
+        \let\nextchar\relax%
+    }{%
+        \relax%
+    }%
+    \nextchar%
+}
 
 \def\@upperletter{%
     \@ifnextchar\par%
@@ -79,6 +97,8 @@
 
 \let\my@ssect\@ssect
 \def\@ssect#1#2#3#4#5{%
+    \phantomsection%
+    \addcontentsline{toc}{section}{\protect\numberline{}#5}%
     \my@ssect{#1}{#2}{#3}{#4}{\centering#5}%
     %%
     \if@twocolumn%
