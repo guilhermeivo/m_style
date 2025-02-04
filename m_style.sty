@@ -198,12 +198,12 @@
 \noalign {\ifnum0 =`}\fi \hrule \@height 1.5pt \futurelet \reserved@a \@xhline}
 
 \newenvironment{appendixenv}[1][\@empty]{
+    \pagestyle{plain}
     \begingroup
-    \pagenumbering{Roman}
     \appendix
     \cleardoublepage
-    %\ifx#1\@empty\relax
-    %\else
+    \ifx#1\@empty\relax
+    \else
     \thispagestyle{empty}
     \vspace*{\fill}
     {%
@@ -212,9 +212,8 @@
         \addcontentsline{toc}{chapter}{\protect\numberline{}#1}%
     }
     \vspace*{\fill}
-    %\fi
-    \pagestyle{plain}
-    \newpage
+    \fi
+    \pagenumbering{Roman}\newpage
 }{%
     \endgroup
     \newpage
