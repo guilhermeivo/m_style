@@ -60,12 +60,16 @@
 
 \def\@tempupperletter#1{%
     \let\nextchar#1%
-    \inlist{\noexpand#1}{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z}{%
-        \upperletter\nextchar%
-        \let\nextchar\relax%
-    }{%
-        \relax%
-    }%
+    \ifx#1*
+        \let\nextchar\relax
+    \else
+        \inlist{\noexpand#1}{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z}{%
+            \upperletter\nextchar%
+            \let\nextchar\relax%
+        }{%
+            \relax%
+        }%
+    \fi
     \nextchar%
 }
 
