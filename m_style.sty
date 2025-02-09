@@ -100,6 +100,12 @@
 \if@customsection
 
 \let\my@ssect\@ssect
+
+\ifdefined\HCode
+
+\def\@ssect#1#2#3#4#5{%
+    \my@ssect{#1}{#2}{#3}{#4}{#5}}
+\else
 \def\@ssect#1#2#3#4#5{%
     \phantomsection%
     \addcontentsline{toc}{section}{\protect\numberline{}#5}%
@@ -131,6 +137,8 @@
     {1.5ex \@plus .2ex}%
     {\normalfont\normalsize\large\scshape\bfseries}%
 }
+
+\fi
 
 \fi
 %% CUSTOM SECTION ENVIRONMENT END
