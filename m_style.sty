@@ -3,7 +3,12 @@
 \typeout{Document Style: Layout definitions for package m_style}
 
 \RequirePackage{newtx} % pattern font in projects
+
+\@ifpackageloaded{hyperref}{\relax}
+{
 \RequirePackage{hyperref}
+}
+
 \RequirePackage[left=2.5cm, right=2.0cm, top=2.5cm, bottom=2.0cm]{geometry}
 
 \author{guilhermeivo}
@@ -209,7 +214,7 @@
 \newcommand{\Hline}{%
 \noalign {\ifnum0 =`}\fi \hrule \@height 1.5pt \futurelet \reserved@a \@xhline}
 
-\newenvironment{appendixenv}[1][\@empty]{
+\newenvironment{appendixenv}[1][\@empty]{%
     \pagestyle{plain}
     \begingroup
     \appendix
@@ -226,6 +231,16 @@
     \vspace*{\fill}
     \fi
     \pagenumbering{Roman}\newpage
+}{%
+    \endgroup
+    \newpage
+}
+
+\newenvironment{bibliographyenv}{%
+    \begingroup
+
+    \cleardoublepage
+    \pagestyle{empty}\pagenumbering{gobble}
 }{%
     \endgroup
     \newpage
