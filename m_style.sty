@@ -108,13 +108,14 @@
 
 \ifdefined\HCode
 
-\def\@ssect#1#2#3#4#5#6#7{%
-    \my@ssect{#1}{#2}{#3}{#4}{#5}{#6}{#7}}
+\def\@ssect#1#2#3#4#5{%
+    \my@ssect{#1}{#2}{#3}{#4}{#5}}
 \else
-\def\@ssect#1#2#3#4#5#6#7{%
-    \phantomsection%
-    \addcontentsline{toc}{#1}{\protect\numberline{}#7}%
-    \my@ssect{#3}{#4}{#5}{#6}{\centering#7}%
+\def\@ssect#1#2#3#4#5{%
+    %\phantomsection%
+    %\addcontentsline{toc}{#1}{\protect\numberline{}#7}
+
+    \my@ssect{#1}{#2}{#3}{#4}{\centering#5}%
     %%
     \if@twocolumn%
         \ifnum\col@number=\@ne\relax%
@@ -124,9 +125,6 @@
         \fi%
     \fi%
     \@upperletter}
-
-\def\@startsection#1#2#3#4#5#6{\if@noskipsec \leavevmode \fi \par \@tempskipa #4\relax \@afterindenttrue \ifdim \@tempskipa <\z@ \@tempskipa -\@tempskipa \@afterindentfalse \fi \if@nobreak \everypar {}\else \addpenalty \@secpenalty \addvspace \@tempskipa \fi%
-\@ifstar {\@ssect {#1}{#2}{#3}{#4}{#5}{#6}}{\@dblarg {\@sect {#1}{#2}{#3}{#4}{#5}{#6}}}}
 
 \renewcommand{\section}{\@startsection{section}{1}{\z@}%
     {-3.5ex \@plus -1ex \@minus -.2ex}%
@@ -212,6 +210,38 @@
     \let\@evenfoot\@empty
 }
 %% CUSTOM HEADINGS ENVIRONMENT END
+
+%% BEGIN LIST OF GRAPHICS
+% File 44 - ltsect.dtx
+% File 45 - ltfloat.dtx
+
+\def\listgraphicname{List of Graphics}
+\def\graphicname{Graphic}
+
+\@ifpackageloaded{babel}
+{%
+    \addto\captionsbrazil{\def\listgraphicname{Lista de Gráficos}}
+    \addto\captionsbrazil{\def\graphicname{Gráfico}}
+}
+{\relax}
+
+\def\graphic{\@float{graphic}}
+\def\endgraphic{\end@float}
+
+\newcounter{graphic}
+
+\def\fps@graphic{tbp}
+\def\ftype@graphic{1}
+\def\ext@graphic{lop}
+\def\fnum@graphic{\graphicname\nobreakspace\thetable}
+
+\def\listofgraphics{
+    \section*{\listgraphicname \@mkboth {\MakeUppercase \listgraphicname }{\MakeUppercase \listgraphicname}}%
+    \@starttoc{lop}%
+}
+
+\def\l@graphic{\@dottedtocline{1}{1.5em}{2.3em}}
+%% END LIST OF GRAPHICS
 
 % line with thickness control
 \newcommand{\Hline}{%
