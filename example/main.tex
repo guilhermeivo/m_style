@@ -1,4 +1,4 @@
-\documentclass[twocolumn,10pt]{article}
+\documentclass[12pt]{article}
 
 \usepackage[brazil]{babel}
 \usepackage[T1]{fontenc}
@@ -11,16 +11,31 @@
 % Caso seja necessário desativar o pacote m_style
 % descomentar as linhas abaixo e remover o pacote.
 %
-% \newcommand{\keywords}[1]{}
-% \makeatletter\newcommand{\@keywords}{}\makeatother
-% \newenvironment{appendixenv}[1][\@empty]{\begingroup\appendix}{\endgroup}
-% \newenvironment{bibliographyenv}{\begingroup}{\endgroup}
 %
 % m_style repository:
 % https://github.com/guilhermeivo/m_style/
-\usepackage[section, maketitle]{m_style}
 
-\title{Arquivo de Exemplo para o Estilo m\_style.sty}
+\def\usemstyle{}
+
+\ifdefined\usemstyle\relax
+    \message{Usando configuração do m_style}%
+
+    \usepackage[section, maketitle]{m_style}
+
+    \title{Arquivo de Exemplo para o Estilo m\_style.sty}
+\else
+    \message{Usando configuração padrão}%
+
+    \title{Arquivo de Exemplo para o Estilo Padrão}
+
+    \makeatletter
+    \newcommand{\keywords}[1]{}
+    \newcommand{\@keywords}{}
+    \newenvironment{appendixenv}[1][\@empty]{\begingroup\appendix}{\endgroup}
+    \newenvironment{bibliographyenv}{\begingroup}{\endgroup}
+    \makeatother
+\fi
+
 \author{guilhermeivo}
 \keywords{example, \LaTeX}
 \date{\today}
@@ -36,22 +51,18 @@
 }
 \makeatother
 
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
 \begin{document}
 
-\onecolumn
-
 \maketitle
-\tableofcontents
-\listoffigures
-\listoftables
-\listofgraphics
+%\tableofcontents
+%\listoffigures
+%\listoftables
+%\listofgraphics
 \cleardoublepage
 
 \pagenumbering{arabic}
-
-\twocolumn
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam gravida, quam ut varius convallis, turpis elit tempus nulla, eget aliquet tortor libero et dui. Curabitur in tincidunt tortor. Nulla vel tellus odio. Sed tempor malesuada sem pulvinar tempus. Curabitur iaculis ligula nec libero vestibulum, in vehicula purus dignissim. In ullamcorper ligula tempus convallis elementum. Cras fermentum odio purus, vel viverra sem commodo sed. Nullam rutrum imperdiet justo. Phasellus malesuada fringilla justo eu volutpat. Nam elementum euismod lacinia. Aenean vitae tellus erat. 
 
 \section{First Section}
 
@@ -59,7 +70,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris purus dui, digni
 
 Donec commodo urna ex, non dapibus nunc iaculis a. Duis at neque et tellus dapibus porta in sit amet diam. In imperdiet, est eu placerat mattis, lectus justo venenatis eros, eget blandit felis tortor sit amet tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis malesuada maximus nunc in laoreet. Morbi blandit, odio vestibulum dictum placerat, lorem justo dignissim felis, a consequat felis nibh in urna. Proin rhoncus sapien at tristique lacinia. Morbi finibus neque eget tellus elementum venenatis. Morbi auctor tincidunt ornare. Mauris leo ligula, auctor eget turpis id, efficitur aliquet ligula. Fusce auctor, arcu semper luctus interdum, ligula arcu condimentum lorem, eu fermentum metus sem non risus. Fusce sit amet sollicitudin tortor. Duis tempus nisl sit amet consequat dapibus. Integer non eleifend neque, at molestie ligula. Nullam hendrerit, odio sit amet molestie consectetur, enim orci posuere lorem, mollis euismod elit erat vel sapien.
 
-\renewcommand{\labelenumi}{(\alph{enumi})}
 \begin{enumerate}
     \item Default font size is: \makeatletter\f@size\makeatother pt.
     
@@ -68,24 +78,21 @@ Donec commodo urna ex, non dapibus nunc iaculis a. Duis at neque et tellus dapib
 
 Aenean eget tempor ligula. Maecenas mollis mi velit, ac interdum tellus iaculis sit amet. Fusce semper ultrices augue. Nam at tortor eros. Nunc porta urna dui, at consectetur justo dapibus nec. Duis id pellentesque nisi. Sed et dolor lacus. Donec sed finibus ipsum. Mauris bibendum erat nisl, sed blandit eros bibendum in. In rhoncus lorem sit amet bibendum dignissim. Mauris purus urna, dictum bibendum eleifend quis, consequat sit amet neque. Integer et hendrerit justo, ac hendrerit turpis. Donec et sollicitudin\footnote{Lorem ipsum dolor sit amet, consectetuer adipiscing elit.} ipsum. Etiam scelerisque, orci at venenatis sodales, orci mi sagittis nunc, ut malesuada metus magna quis augue. 
 
-\twocolumn [
-    \section*{Large Center Section}
-    \vskip 0.45cm
-]
+\section*{Large Center Section}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris purus dui, dignissim quis porta sit amet, tempor vitae dolor. Integer blandit dui lorem. Integer varius ante volutpat lorem tincidunt volutpat. Ut cursus placerat ante. Aliquam metus ex, pharetra in justo nec, pellentesque porttitor erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam porttitor diam rutrum, laoreet leo a, tempus quam. Praesent lobortis turpis id orci tincidunt euismod. Ut ut justo eget dolor sagittis efficitur. Praesent ex justo, molestie quis odio vel, vulputate eleifend tellus. Duis vitae nunc sapien. Quisque elit metus, volutpat id elit bibendum, venenatis varius lorem.
 
 Donec commodo urna ex, non dapibus nunc iaculis a. Duis at neque et tellus dapibus porta in sit amet diam. In imperdiet, est eu placerat mattis, lectus justo venenatis eros, eget blandit felis tortor sit amet tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis malesuada maximus nunc in laoreet. Morbi blandit, odio vestibulum dictum placerat, lorem justo dignissim felis, a consequat felis nibh in urna. Proin rhoncus sapien at tristique lacinia. Morbi finibus neque eget tellus elementum venenatis. Morbi auctor tincidunt ornare. Mauris leo ligula, auctor eget turpis id, efficitur aliquet ligula. Fusce auctor, arcu semper luctus interdum, ligula arcu condimentum lorem, eu fermentum metus sem non risus. Fusce sit amet sollicitudin tortor. Duis tempus nisl sit amet consequat dapibus. Integer non eleifend neque, at molestie ligula. Nullam hendrerit, odio sit amet molestie consectetur, enim orci posuere lorem, mollis euismod elit erat vel sapien.
 
-\begin{graphic}
+\begin{figure}
     \centering
     \caption{Example Image}
     \vspace{5pt}
-    \includegraphics[width=0.5\columnwidth]{example-image}
+    \includegraphics[width=0.95\columnwidth]{example-image}
     \vspace{5pt}
     {\par\small Fonte: graphicx}
     \label{fig:example-image}
-\end{graphic}
+\end{figure}
 
 Fusce sit amet eros sit amet nisl ornare consectetur. In purus enim, posuere nec imperdiet et, sagittis at tortor. Morbi eu augue congue massa interdum pretium quis eu velit. Pellentesque odio ante, pretium nec dictum vitae, gravida sit amet dolor. Proin dignissim commodo laoreet. Fusce pellentesque dolor ac leo mollis, in laoreet felis pharetra. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas scelerisque accumsan sollicitudin. Pellentesque tempor non sapien ultrices condimentum. Nulla lacinia nisi nec tincidunt euismod. Mauris elementum arcu in nisl pharetra laoreet. Nam eu ipsum euismod, aliquet elit sed, sollicitudin neque. Nulla ullamcorper diam nulla, ut molestie massa blandit ac. Etiam non aliquam magna.
 
@@ -97,10 +104,6 @@ Aenean eget tempor ligula. Maecenas mollis mi velit, ac interdum tellus iaculis 
 Donec commodo urna ex, non dapibus nunc iaculis a. Duis\cite{texbook} at neque et tellus dapibus porta in sit amet diam. In imperdiet, est eu placerat mattis, lectus justo venenatis eros, eget blandit felis tortor sit amet tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis malesuada maximus nunc in laoreet. Morbi blandit, odio vestibulum dictum placerat, lorem justo dignissim felis, a consequat felis nibh in urna. Proin rhoncus sapien at tristique lacinia. Morbi finibus neque eget tellus elementum venenatis. Morbi auctor tincidunt ornare. Mauris leo ligula, auctor eget turpis id, efficitur aliquet ligula. Fusce auctor, arcu semper luctus interdum, ligula arcu condimentum lorem, eu fermentum metus sem non risus. Fusce sit amet sollicitudin tortor. Duis tempus nisl sit amet consequat dapibus. Integer non eleifend neque, at molestie ligula. Nullam hendrerit, odio sit amet molestie consectetur, enim orci posuere lorem, mollis euismod elit erat vel sapien.
 
 Fusce sit amet eros sit amet nisl ornare consectetur. In purus enim, posuere nec imperdiet et, sagittis at tortor. Morbi eu augue congue massa interdum pretium quis eu velit. Pellentesque odio ante, pretium nec dictum vitae, gravida sit amet dolor. Proin dignissim commodo laoreet. Fusce pellentesque dolor ac leo mollis, in laoreet felis pharetra. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas scelerisque accumsan sollicitudin. Pellentesque tempor non sapien ultrices condimentum. Nulla lacinia nisi nec tincidunt euismod. Mauris elementum arcu in nisl pharetra laoreet. Nam eu ipsum euismod, aliquet elit sed, sollicitudin neque. Nulla ullamcorper diam nulla, ut molestie massa blandit ac. Etiam non aliquam magna. 
-
-% necessario voltar para uma coluna caso
-% esteja usando twocolumn.
-\onecolumn
 
 \begin{bibliographyenv}
     \bibliographystyle{plain}

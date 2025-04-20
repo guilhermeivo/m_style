@@ -115,7 +115,7 @@
     %\phantomsection%
     %\addcontentsline{toc}{#1}{\protect\numberline{}#7}
 
-    \my@ssect{#1}{#2}{#3}{#4}{\centering#5}%
+    \my@ssect{#1}{#2}{#3}{#4}{#5}%
     %%
     \if@twocolumn%
         \ifnum\col@number=\@ne\relax%
@@ -129,19 +129,19 @@
 \renewcommand{\section}{\@startsection{section}{1}{\z@}%
     {-3.5ex \@plus -1ex \@minus -.2ex}%
     {2.3ex \@plus .2ex}%
-    {\normalfont\LARGE\scshape\bfseries}%
+    {\normalfont\huge\scshape\bfseries\centering}%
 }
 
 \renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
     {-3.25ex\@plus -1ex \@minus -.2ex}%
     {1.5ex \@plus .2ex}%
-    {\normalfont\Large\scshape\bfseries}%
+    {\normalfont\LARGE\scshape\bfseries\centering}%
 }
 
 \renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{\z@}%
     {-3.25ex\@plus -1ex \@minus -.2ex}%
     {1.5ex \@plus .2ex}%
-    {\normalfont\normalsize\large\scshape\bfseries}%
+    {\normalfont\Large\scshape\bfseries\centering}%
 }
 
 \fi
@@ -273,7 +273,7 @@
     \begingroup
 
     \cleardoublepage
-    \pagestyle{empty}\pagenumbering{gobble}
+    \thispagestyle{empty}\pagestyle{empty}\pagenumbering{gobble}
 }{%
     \endgroup
     \newpage
