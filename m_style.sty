@@ -2,7 +2,7 @@
 \ProvidesPackage{m_style}[2025/01/03 v0.1 (guilhermeivo)]
 \typeout{Document Style: Layout definitions for package m_style}
 
-\RequirePackage{newtx} % pattern font in projects
+% \RequirePackage{newtx} % pattern font in projects
 
 \@ifpackageloaded{hyperref}{\relax}
 {
@@ -46,7 +46,10 @@
 
 %% UPPERLETTER ENVIRONMENT BEGIN
 \newlength{\fontsizeupperletter}
-\setlength{\fontsizeupperletter}{5.27em}
+
+%\setlength{\fontsizeupperletter}{5.27em}
+% the default font has a size limit
+\setlength{\fontsizeupperletter}{3.2em}
 
 \newlength{\heighttext}
 \newlength{\widthtext}
@@ -97,7 +100,9 @@
 
     \vspace{-\totaltext}%
     \noindent%
-    \hangindent=\dimexpr\widthtext+0.5pc\relax\hangafter=-\numexpr(\totaltext/\baselineskip)\relax%
+    \hangindent=\dimexpr\widthtext+0.5pc\relax
+    \hangafter=-2\relax%
+    %\hangafter=-\numexpr(\totaltext/\baselineskip)\relax%
 }
 %% UPPERLETTER ENVIRONMENT END
 
@@ -129,19 +134,19 @@
 \renewcommand{\section}{\@startsection{section}{1}{\z@}%
     {-3.5ex \@plus -1ex \@minus -.2ex}%
     {2.3ex \@plus .2ex}%
-    {\normalfont\huge\scshape\bfseries\centering}%
+    {\normalfont\LARGE\scshape\bfseries\centering}%
 }
 
 \renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
     {-3.25ex\@plus -1ex \@minus -.2ex}%
     {1.5ex \@plus .2ex}%
-    {\normalfont\LARGE\scshape\bfseries\centering}%
+    {\normalfont\Large\scshape\bfseries\centering}%
 }
 
 \renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{\z@}%
     {-3.25ex\@plus -1ex \@minus -.2ex}%
     {1.5ex \@plus .2ex}%
-    {\normalfont\Large\scshape\bfseries\centering}%
+    {\normalfont\large\scshape\bfseries\centering}%
 }
 
 \fi
